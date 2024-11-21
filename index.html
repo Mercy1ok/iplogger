@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Logger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div style="text-align: center;">
+        <h1>Welcome to the IP Logger</h1>
+        <form method="POST">
+            <label for="url">Enter the URL to encrypt:</label>
+            <input type="text" id="url" name="url" placeholder="e.g. https://www.example.com" required>
+            <button type="submit">Generate Encoded Link</button>
+        </form>
+
+        {% if full_link %}
+            <h2>Your Encoded Link</h2>
+            <input type="text" value="{{ full_link }}" id="encodedLink" readonly>
+            <button onclick="copyToClipboard()">Copy Link</button>
+            <p><a href="{{ full_link }}" target="_blank">Click here to visit the link</a></p>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            var copyText = document.getElementById("encodedLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Copied the link: " + copyText.value);
+        }
+    </script>
+</body>
+</html>
